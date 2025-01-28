@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { CompaignsService } from './compaigns.service';
 import { CreateCompaignDto } from './dto/create-compaign.dto';
 import { UpdateCompaignDto } from './dto/update-compaign.dto';
@@ -7,19 +7,19 @@ import { UpdateCompaignDto } from './dto/update-compaign.dto';
 export class CompaignsController {
   constructor(private readonly compaignsService: CompaignsService) {}
 
-  @Post()
-  create(@Body() createCompaignDto: CreateCompaignDto) {
-    return this.compaignsService.create(createCompaignDto);
+  @Post('create')
+  async createCompaign(@Body() createCompaignDto: CreateCompaignDto) {
+    return this.compaignsService.createCompaign(createCompaignDto);
   }
 
   @Get()
-  findAll() {
-    return this.compaignsService.findAll();
+  findAllCompains() {
+    return this.compaignsService.findAllCompains();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.compaignsService.findOne(+id);
+  async findOneCompaign(@Param('id') id: string) {
+    return this.compaignsService.findOneCompaign(id);
   }
 
   @Patch(':id')
