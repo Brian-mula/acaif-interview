@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 import { User } from "src/auth/entity/user.entity";
 
 @Schema({ timestamps: true })
@@ -14,7 +14,7 @@ export class Compaign {
     deadline: Date;
 
     @Prop({type:[{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]})
-    influencers: User[];
+    influencers: Types.ObjectId[];
 
     @Prop({type:mongoose.Schema.Types.ObjectId, ref: 'User' })
     createdBy: User;
@@ -24,6 +24,28 @@ export class Compaign {
 
     @Prop({default:0,type:Number})
     totalPosts: number;
+    
+    @Prop({
+        type: [
+          {
+            influencer: { type: Types.ObjectId, ref: 'User' },
+            totalPosts: Number,
+            likes: Number,
+            shares: Number,
+            comments: Number,
+            lastSubmissionDate: Date,
+          },
+        ],
+        default: [],
+      })
+      performance: {
+        influencer: Types.ObjectId;
+        totalPosts: number;
+        likes: number;
+        shares: number;
+        comments: number;
+        lastSubmissionDate: Date;
+      }[];
 }
 
 export const CompaignSchema = SchemaFactory.createForClass(Compaign);
