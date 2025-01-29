@@ -1,5 +1,23 @@
 ## Installation
 
+## clone repository
+
+```bash
+git clone https://github.com/Brian-mula/acaif-interview.git
+```
+
+## Create a .env file at the root
+
+```bash
+touch .env
+```
+
+## add the follwing variables
+
+```bash
+MONGO_URI = 'url-to-your-mongo-db'
+```
+
 ```bash
 npm install
 ```
